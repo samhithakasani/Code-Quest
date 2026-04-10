@@ -1,0 +1,2 @@
+.layout { display: flex; min-height: 100vh; }
+.main-content { margin-left: 260px; flex: 1; background: #080b14; min-height: 100vh; }

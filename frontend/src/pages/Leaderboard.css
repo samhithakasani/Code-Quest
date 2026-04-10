@@ -1,0 +1,42 @@
+.lb-page { padding: 32px; max-width: 1000px; }
+.lb-header { margin-bottom: 32px; }
+.lb-header h1 { display: flex; align-items: center; gap: 10px; font-size: 1.8rem; font-weight: 800; color: white; margin-bottom: 4px; }
+.lb-header p { color: #64748b; }
+
+.podium { display: flex; align-items: flex-end; justify-content: center; gap: 16px; margin-bottom: 36px; height: 200px; }
+.podium-slot { display: flex; flex-direction: column; align-items: center; gap: 6px; }
+.podium-avatar {
+  width: 52px; height: 52px; border-radius: 50%;
+  background: linear-gradient(135deg, #8b5cf6, #ec4899);
+  display: flex; align-items: center; justify-content: center;
+  font-size: 1.3rem; font-weight: 800; color: white;
+}
+.podium-name { color: white; font-size: 0.85rem; font-weight: 700; }
+.podium-score { color: #a78bfa; font-size: 0.8rem; font-weight: 600; }
+.podium-medal { font-size: 1.4rem; }
+.podium-block {
+  padding: 10px 20px; border-radius: 10px 10px 0 0;
+  font-size: 0.8rem; font-weight: 700; color: white;
+  display: flex; align-items: center; justify-content: center;
+}
+.rank-1 .podium-block { background: rgba(245,158,11,0.3); border: 1px solid rgba(245,158,11,0.4); height: 80px; }
+.rank-2 .podium-block { background: rgba(148,163,184,0.2); border: 1px solid rgba(148,163,184,0.3); height: 60px; }
+.rank-3 .podium-block { background: rgba(205,127,50,0.2); border: 1px solid rgba(205,127,50,0.3); height: 45px; }
+
+.lb-table-wrap { background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07); border-radius: 18px; overflow: hidden; }
+.lb-table { width: 100%; border-collapse: collapse; }
+.lb-table thead tr { background: rgba(255,255,255,0.04); border-bottom: 1px solid rgba(255,255,255,0.07); }
+.lb-table th { padding: 14px 16px; text-align: left; font-size: 0.78rem; font-weight: 700; color: #64748b; text-transform: uppercase; letter-spacing: 0.5px; }
+.lb-table td { padding: 14px 16px; border-bottom: 1px solid rgba(255,255,255,0.04); font-size: 0.875rem; color: #94a3b8; }
+.lb-table tr:last-child td { border-bottom: none; }
+.lb-table tr:hover td { background: rgba(255,255,255,0.02); }
+.top-row td { background: rgba(245,158,11,0.04); }
+.rank-cell { font-size: 1.1rem; }
+.rank-num { color: #4b5563; font-weight: 700; }
+.player-cell { display: flex; align-items: center; gap: 10px; }
+.player-av { width: 32px; height: 32px; border-radius: 50%; background: linear-gradient(135deg, #8b5cf6, #ec4899); display: flex; align-items: center; justify-content: center; font-size: 0.85rem; font-weight: 700; color: white; flex-shrink: 0; }
+.quiz-cell { max-width: 200px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; color: #e2e8f0; }
+.score-pill { padding: 4px 12px; border-radius: 20px; background: rgba(139,92,246,0.15); color: #a78bfa; font-weight: 700; font-size: 0.82rem; }
+.time-cell { font-family: monospace; }
+.date-cell { color: #4b5563; }
+.no-data { text-align: center; padding: 40px; color: #4b5563; }

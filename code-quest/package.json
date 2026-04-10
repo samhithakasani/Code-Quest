@@ -1,0 +1,14 @@
+{
+  "name": "code-quest-root",
+  "version": "1.0.0",
+  "description": "Root controller for CodeQuest",
+  "scripts": {
+    "dev": "npx concurrently \"npm run dev --prefix backend\" \"npm run dev --prefix frontend\"",
+    "backend": "npm run dev --prefix backend",
+    "frontend": "npm run dev --prefix frontend",
+    "install-all": "npm install --prefix backend && npm install --prefix frontend"
+  },
+  "devDependencies": {
+    "concurrently": "^8.2.2"
+  }
+}

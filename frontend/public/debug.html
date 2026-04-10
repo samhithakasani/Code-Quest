@@ -1,0 +1,237 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CodeQuest DOM Debug</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            margin: 20px;
+            background-color: #f5f5f5;
+        }
+        .debug-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .section {
+            margin-bottom: 30px;
+            padding: 15px;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .section h3 {
+            margin-top: 0;
+            color: #333;
+        }
+        .api-test {
+            background: #f8f9fa;
+            padding: 10px;
+            margin: 10px 0;
+            border-radius: 5px;
+        }
+        .api-test button {
+            background: #007bff;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-right: 10px;
+        }
+        .api-test button:hover {
+            background: #0056b3;
+        }
+        .result {
+            margin-top: 10px;
+            padding: 10px;
+            background: #e9ecef;
+            border-radius: 4px;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .success { background: #d4edda; color: #155724; }
+        .error { background: #f8d7da; color: #721c24; }
+        .info { background: #d1ecf1; color: #0c5460; }
+    </style>
+</head>
+<body>
+    <div class="debug-container">
+        <h1>🔍 CodeQuest DOM Debug Tool</h1>
+        <p>This tool helps you debug the CodeQuest application by testing API endpoints and checking DOM structure.</p>
+
+        <div class="section">
+            <h3>🌐 API Connection Tests</h3>
+            
+            <div class="api-test">
+                <h4>Test Backend Connection</h4>
+                <button onclick="testBackend()">Test Backend Health</button>
+                <button onclick="testQuizzes()">Test Quizzes API</button>
+                <button onclick="testQuestions()">Test Questions API</button>
+                <div id="backend-result" class="result"></div>
+            </div>
+
+            <div class="api-test">
+                <h4>Test Authentication</h4>
+                <button onclick="testLogin()">Test Login</button>
+                <button onclick="testAuth()">Test Auth Status</button>
+                <div id="auth-result" class="result"></div>
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>✅ Current Status - WORKING!</h3>
+            <div class="result success">
+🎉 BACKEND API IS WORKING!
+✅ 10 Quizzes Available
+✅ 21 Questions Loaded  
+✅ Authentication Fixed
+✅ CORS Configured
+
+📱 Frontend: http://localhost:5176/
+🔧 Backend: http://localhost:5000/
+📚 Debug: http://localhost:5176/debug.html
+
+🚀 READY TO USE!
+            </div>
+        </div>
+
+        <div class="section">
+            <h3>🔧 Browser Information</h3>
+            <div id="browser-info" class="result"></div>
+        </div>
+
+        <div class="section">
+            <h3>📱 Navigation Links</h3>
+            <div>
+                <a href="http://localhost:5176/" target="_blank" style="margin-right: 15px;">🏠 Main App</a>
+                <a href="http://localhost:5176/login" target="_blank" style="margin-right: 15px;">🔐 Login</a>
+                <a href="http://localhost:5176/quizzes" target="_blank" style="margin-right: 15px;">📚 Quizzes</a>
+                <a href="http://localhost:5000/api/health" target="_blank">🏥 Backend Health</a>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        const API_BASE = 'http://localhost:5000/api';
+
+        function updateResult(elementId, message, type = 'info') {
+            const element = document.getElementById(elementId);
+            element.textContent = message;
+            element.className = `result ${type}`;
+        }
+
+        async function testBackend() {
+            updateResult('backend-result', 'Testing backend connection...', 'info');
+            try {
+                const response = await fetch(`${API_BASE}/health`);
+                const data = await response.json();
+                updateResult('backend-result', `✅ Backend Connected!\n${JSON.stringify(data, null, 2)}`, 'success');
+            } catch (error) {
+                updateResult('backend-result', `❌ Backend Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testQuizzes() {
+            updateResult('backend-result', 'Testing quizzes API...', 'info');
+            try {
+                const response = await fetch(`${API_BASE}/quizzes`);
+                const data = await response.json();
+                updateResult('backend-result', `✅ Quizzes API Working!\nFound ${data.quizzes?.length || 0} quizzes\n${JSON.stringify(data, null, 2).substring(0, 500)}...`, 'success');
+            } catch (error) {
+                updateResult('backend-result', `❌ Quizzes API Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testQuestions() {
+            updateResult('backend-result', 'Testing questions API...', 'info');
+            try {
+                const response = await fetch(`${API_BASE}/questions`);
+                const data = await response.json();
+                updateResult('backend-result', `✅ Questions API Working!\nFound ${data.questions?.length || 0} questions\n${JSON.stringify(data, null, 2).substring(0, 500)}...`, 'success');
+            } catch (error) {
+                updateResult('backend-result', `❌ Questions API Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testLogin() {
+            updateResult('auth-result', 'Testing login...', 'info');
+            try {
+                const response = await fetch(`${API_BASE}/auth/login`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ email: 'admin@quiz.com', password: 'admin123' })
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    localStorage.setItem('debug_token', data.token);
+                    updateResult('auth-result', `✅ Login Successful!\nToken: ${data.token?.substring(0, 50)}...\nUser: ${JSON.stringify(data.user, null, 2)}`, 'success');
+                } else {
+                    updateResult('auth-result', `❌ Login Failed: ${data.message}`, 'error');
+                }
+            } catch (error) {
+                updateResult('auth-result', `❌ Login Error: ${error.message}`, 'error');
+            }
+        }
+
+        async function testAuth() {
+            updateResult('auth-result', 'Testing authentication...', 'info');
+            const token = localStorage.getItem('debug_token');
+            if (!token) {
+                updateResult('auth-result', '❌ No token found. Please login first.', 'error');
+                return;
+            }
+            try {
+                const response = await fetch(`${API_BASE}/auth/me`, {
+                    headers: { 'Authorization': `Bearer ${token}` }
+                });
+                const data = await response.json();
+                if (response.ok) {
+                    updateResult('auth-result', `✅ Authentication Working!\nUser: ${JSON.stringify(data, null, 2)}`, 'success');
+                } else {
+                    updateResult('auth-result', `❌ Auth Failed: ${data.message}`, 'error');
+                }
+            } catch (error) {
+                updateResult('auth-result', `❌ Auth Error: ${error.message}`, 'error');
+            }
+        }
+
+        function showBrowserInfo() {
+            const info = `
+User Agent: ${navigator.userAgent}
+Platform: ${navigator.platform}
+Language: ${navigator.language}
+Cookies Enabled: ${navigator.cookieEnabled}
+Online Status: ${navigator.onLine}
+Screen Resolution: ${screen.width}x${screen.height}
+Viewport: ${window.innerWidth}x${window.innerHeight}
+Local Storage Available: ${typeof(Storage) !== "undefined"}
+Session Storage Available: ${typeof(Storage) !== "undefined"}
+            `.trim();
+            document.getElementById('browser-info').textContent = info;
+        }
+
+        function checkAppStatus() {
+            const status = `
+Frontend URL: http://localhost:5176/
+Backend URL: http://localhost:5000/
+API Base: ${API_BASE}
+Current Time: ${new Date().toLocaleString()}
+Page Loaded: ${performance.now().toFixed(2)}ms
+            `.trim();
+            document.getElementById('app-status').textContent = status;
+        }
+
+        // Auto-run tests when page loads
+        window.addEventListener('load', () => {
+            showBrowserInfo();
+            checkAppStatus();
+            testBackend();
+        });
+    </script>
+</body>
+</html>

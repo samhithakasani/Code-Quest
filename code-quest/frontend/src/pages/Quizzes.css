@@ -1,0 +1,48 @@
+.quizzes-page { padding: 32px; max-width: 1200px; }
+.quizzes-header { margin-bottom: 24px; }
+.quizzes-header h1 { font-size: 1.8rem; font-weight: 800; color: white; margin-bottom: 4px; }
+.quizzes-header p { color: #64748b; font-size: 0.9rem; }
+
+.filters-bar { display: flex; gap: 12px; margin-bottom: 28px; flex-wrap: wrap; }
+.search-wrap {
+  flex: 1; min-width: 220px; position: relative;
+  display: flex; align-items: center;
+}
+.search-icon { position: absolute; left: 14px; color: #4b5563; }
+.search-wrap input {
+  width: 100%; padding: 11px 14px 11px 40px;
+  background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.1);
+  border-radius: 10px; color: white; font-size: 0.875rem; outline: none;
+}
+.search-wrap input:focus { border-color: #8b5cf6; }
+.search-wrap input::placeholder { color: #4b5563; }
+
+.filter-select-wrap {
+  position: relative; display: flex; align-items: center; gap: 8px;
+  padding: 10px 14px; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #94a3b8;
+}
+.filter-select-wrap select {
+  background: none; border: none; color: #94a3b8;
+  font-size: 0.875rem; outline: none; cursor: pointer; padding-right: 4px;
+}
+.filter-select-wrap select option { background: #1a1040; }
+
+.quizzes-grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+.quiz-big-card {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.07);
+  border-radius: 16px; padding: 22px; text-decoration: none;
+  display: flex; flex-direction: column; gap: 10px;
+  transition: all 0.3s;
+}
+.quiz-big-card:hover { border-color: #8b5cf6; background: rgba(139,92,246,0.08); transform: translateY(-4px); box-shadow: 0 12px 30px rgba(0,0,0,0.3); }
+.qbc-top { display: flex; align-items: center; justify-content: space-between; }
+.qbc-category { font-size: 0.75rem; color: #4b5563; font-weight: 500; }
+.quiz-big-card h3 { font-size: 1rem; font-weight: 700; color: #e2e8f0; }
+.quiz-big-card p { font-size: 0.8rem; color: #64748b; line-height: 1.6; flex: 1; }
+.qbc-stats { display: flex; gap: 14px; flex-wrap: wrap; }
+.qbc-stat { display: flex; align-items: center; gap: 5px; font-size: 0.78rem; color: #4b5563; }
+.qbc-footer { display: flex; align-items: center; justify-content: space-between; margin-top: 4px; padding-top: 12px; border-top: 1px solid rgba(255,255,255,0.06); }
+.attempts-count { font-size: 0.75rem; color: #4b5563; }
+.start-link { font-size: 0.82rem; font-weight: 700; color: #a78bfa; }
+.no-results { grid-column: 1/-1; text-align: center; padding: 60px; color: #4b5563; }

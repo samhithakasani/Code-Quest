@@ -1,0 +1,76 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=JetBrains+Mono:wght@400;600&display=swap');
+
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+:root {
+  --bg: #080b14;
+  --surface: rgba(255,255,255,0.04);
+  --border: rgba(255,255,255,0.07);
+  --accent: #8b5cf6;
+  --accent-2: #06b6d4;
+  --text: #e2e8f0;
+  --text-muted: #64748b;
+  --glass: rgba(15, 12, 41, 0.6);
+  --glass-border: rgba(139, 92, 246, 0.2);
+  --shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+  --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+html { scroll-behavior: smooth; }
+
+body {
+  font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  background: var(--bg);
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+::-webkit-scrollbar { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: rgba(139,92,246,0.3); border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(139,92,246,0.5); }
+
+input, select, textarea, button { font-family: inherit; }
+
+code, pre { font-family: 'JetBrains Mono', monospace; }
+
+a { color: inherit; }
+
+::selection { background: rgba(139,92,246,0.3); color: white; }
+
+/* Shared filter styles */
+.filter-select-wrap {
+  position: relative; display: flex; align-items: center; gap: 8px;
+  padding: 10px 14px; background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(255,255,255,0.1); border-radius: 10px; color: #94a3b8;
+}
+.filter-select-wrap select {
+  background: none; border: none; color: #94a3b8;
+  font-size: 0.875rem; outline: none; cursor: pointer;
+}
+.filter-select-wrap select option { background: #1a1040; }
+
+.glass-card {
+  background: var(--glass);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid var(--glass-border);
+  border-radius: 20px;
+  box-shadow: var(--shadow);
+  transition: var(--transition);
+}
+
+.glass-card:hover {
+  border-color: rgba(139, 92, 246, 0.4);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 40px 0 rgba(139, 92, 246, 0.2);
+}
+
+.grad-text {
+  background: linear-gradient(135deg, #a78bfa, #38bdf8);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  font-weight: 800;
+}
