@@ -21,10 +21,12 @@ app.use(helmet({
       styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
       imgSrc: ["'self'", "data:", "https:"],
       fontSrc: ["'self'", "https://fonts.gstatic.com"],
-      connectSrc: ["'self'", "*"], // Allow API calls to any domain for flexibility
+      connectSrc: ["'self'", "*"],
+      upgradeInsecureRequests: null, // Disable the automatic HTTPS upgrade
     },
   },
-  crossOriginResourcePolicy: { policy: "cross-origin" }
+  crossOriginResourcePolicy: { policy: "cross-origin" },
+  strictTransportSecurity: false, // Disable HSTS (forcing HTTPS)
 }));
 
 app.use(cors({ 
