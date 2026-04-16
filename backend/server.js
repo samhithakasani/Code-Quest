@@ -12,10 +12,25 @@ connectDB();
 
 const app = express();
 
-// Security middleware
-app.use(helmet());
+// Security middleware with relaxed CSP for React/Vite
+app.use(helmet({
+  contentSecurityPolicy: {
+    directives: {
+      defaultSrc: ["'self'"],
+      scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'"],
+      styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com"],
+      imgSrc: ["'self'", "data:", "https:"],
+      fontSrc: ["'self'", "https://fonts.gstatic.com"],
+      connectSrc: ["'self'", "*"], // Allow API calls to any domain for flexibility
+    },
+  },
+  crossOriginResourcePolicy: { policy: "cross-origin" }
+}));
+
 app.use(cors({ 
-  origin: process.env.NODE_ENV === 'production' ? process.env.FRONTEND_URL : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'http://localhost:5176'], 
+  origin: process.env.NODE_ENV === 'production' 
+    ? [process.env.FRONTEND_URL, 'http://localhost:5173', 'http://3.107.183.178'] 
+    : ['http://localhost:5173', 'http://localhost:5174', 'http://localhost:5175', 'http://localhost:5176'], 
   credentials: true 
 }));
 app.use(express.json({ limit: '10mb' }));
@@ -37,14 +52,18 @@ app.get('/api/health', (req, res) => res.json({ status: 'OK', time: new Date() }
 
 // Serve frontend static files in production
 if (process.env.NODE_ENV === 'production') {
-  app.use(express.static(path.join(__dirname, 'public')));
+  const publicPath = path.join(__dirname, 'public');
+  console.log(`📂 Serving static files from: ${publicPath}`);
+  
+  app.use(express.static(publicPath));
 
   app.get('*', (req, res) => {
-    res.sendFile(path.resolve(__dirname, 'public', 'index.html'));
+    res.sendFile(path.resolve(publicPath, 'index.html'));
   });
 } else {
+  console.log("🛠️ Running in DEVELOPMENT mode");
   app.get('/', (req, res) => {
-    res.send('API is running...');
+    res.send('API is running (Development Mode)... Connect to frontend on port 5173');
   });
 }
 
